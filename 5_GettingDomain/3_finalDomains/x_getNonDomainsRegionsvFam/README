@@ -1,0 +1,4 @@
+i)Complete the tsv file find no vFam annotation regions greater than 39
+python completeAnnotation.py ../viii_annotatedProteinsUsingVfam/proteinsNotAnnotated.vFamAnnotation.final.tsv proteinsVfamAnnoation.annotationAndNonAnnotation.tsv#the same for regions
+python completeAnnotation.py ../viii_annotatedProteinsUsingVfam/regionsNotAnnotated.vFamAnnotation.final.tsv regionsNotAnnotated.vFamAnnotation.annotationAndNonAnnotation.tsv
+

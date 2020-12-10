@@ -1,0 +1,5 @@
+./SensitivityPrecision.pl fooGenXCLS.csv fooTaxTagXGen.transposed.csv > testOutfileSP.txt
+run notebook sort&subset.ipynb
+./SortSubsetTable.pl fooGenXCLS.transpose.csv mappingFile.tab.txt tOutSP.txt Order 2 0 > specificityPrecissionOrder.txt
+python normalizeByMaxMatrix.py specitifictyPrecissionOrder.txt
+./PrintHeatmap

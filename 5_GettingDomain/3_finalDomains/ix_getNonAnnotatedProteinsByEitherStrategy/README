@@ -1,0 +1,13 @@
+i) get proteins that were annotated with Vfam 
+awk -F"\t" '{print $1}' ../viii_annotatedProteinsUsingVfam/proteinsNotAnnotated.vFamAnnotation.final.tsv | sort -u > proteinsNotAnnotatedWithInterproButAnnotatedWithVfam.txt
+ii) Remember that proteins without annotation are in vii
+iii) Get protein names that were not anotated with any methods (interpro and vFam)
+comm -23 ../vii_getNonAnnotatedProteins/proteinsNotAnnotated.names.txt proteinsNotAnnotatedWithInterproButAnnotatedWithVfam.txt > proteinsNotAnnotatedWithAnyMethod.names.txt
+iv) Get proteins that are not annotated in fasta format
+xargs samtools faidx ../vii_getNonAnnotatedProteins/proteinsNotAnnotated.fasta < proteinsNotAnnotatedWithAnyMethod.names.txt > proteinsNotAnnotatedWithAnyMethod.fasta
+
+v) REPEAT FOR REGIONS
+awk -F"\t" '{print $1}' ../viii_annotatedProteinsUsingVfam/regionsNotAnnotated.vFamAnnotation.final.tsv | sort -u > regionsNotAnnotatedWithInterproButAnnotatedWithVfam.txt
+sort -u ../vii_getNonAnnotatedProteins/regionsNotAnnotated.names.txt > ../vii_getNonAnnotatedProteins/regionsNotAnnotated.names.sorted.txt #porque el archivo no estaba ordenado
+comm -23 ../vii_getNonAnnotatedProteins/regionsNotAnnotated.names.sorted.txt regionsNotAnnotatedWithInterproButAnnotatedWithVfam.names.txt > regionsNotAnnotatedWithAnyMethod.names.txt
+xargs samtools faidx ../vii_getNonAnnotatedProteins/regionsNotAnnotated.fasta < regionsNotAnnotatedWithAnyMethod.names.txt > regionsNotAnnotatedWithAnyMethod.fasta

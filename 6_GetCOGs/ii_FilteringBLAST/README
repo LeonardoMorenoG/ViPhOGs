@@ -1,0 +1,3 @@
+i)submit filtering BLASTS 
+qsub runFilteringBLST1.sh
+jobs from 1 to 12

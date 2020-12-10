@@ -1,0 +1,2 @@
+i)Get genomes accessions
+grep ">" ../../5_GettingDomains/D_getDomains/3_finalDomains/xii_combineOutputs/UniverseOfViralProteins.fasta | awk -F"|" '{print $1}' | sed 's/>//g' | sort -u > genomesAccessions.txt

@@ -1,0 +1,5 @@
+grep -f 1_getGenomes/finalGenomes.csv ../../2_GettingProteins/Viruses/viralANDPredictedProteins.fasta > finalViralProteins.txt
+sed 's/>//g' finalViralProteins.txt > finalViralProteins.txt.mod
+mv finalViralProteins.txt.mod finalViralProteins.txt
+xargs samtools faidx ../../2_GettingProteins/Viruses/viralANDPredictedProteins.fasta < finalViralProteins.txt > finalViralProteins.fasta
+python ../getSequencesSize.py finalViralProteins.fasta > finalViralProteins.size

@@ -1,0 +1,27 @@
+#Combine outputs of interpro and Vfam annotation
+i) Get interpro Domains (only annotations remove nonDomains)
+grep ">" ../vi_extractSequences/regionsInterproScan.fasta | grep -v "NoDomain" | sed 's/>//g' | awk -F" " '{print $1}' > regionsInterproScan.names.txt
+xargs samtools faidx ../vi_extractSequences/regionsInterproScan.fasta < regionsInterproScan.names.txt > regionsInterproScan.fasta
+
+ii) Get regions without annotation with interproScan but with annotation using Vfam
+cp ../xi_extractSequencesVfamAnnoation/regionsOfInterproScanWithVfam.fasta .
+
+iii) Get regions without annotation by any method I
+cp ../ix_getNonAnnotatedProteinsByEitherStrategy/regionsNotAnnotatedWithAnyMethod.fasta  .
+
+iv) Get vfam annotations (and no annotations) of proteins that were not annoted with interpro
+cp ../xi_extractSequencesVfamAnnoation/regionsVfam.fasta .
+
+v) Get proteins without annotation by any method
+cp ../ix_getNonAnnotatedProteinsByEitherStrategy/proteinsNotAnnotatedWithAnyMethod.fasta .
+
+vi) Concatenate everything
+cat regionsInterproScan.fasta regionsOfInterproScanWithVfam.fasta regionsNotAnnotatedWithAnyMethod.fasta regionsVfam.fasta proteinsNotAnnotatedWithAnyMethod.fasta > UniverseOfViralProteins.fasta
+
+vii) Change colon in final file since BLAST and other software dont admit it. 
+sed 's/:/_/g' UniverseOfViralProteins.fasta > UniverseOfViralProteins.fasta.mod
+mv UniverseOfViralProteins.fasta.mod > UniverseOfViralProteins.fasta
+
+viii) remove annotation from fasta name line cause it interfers with real protein name
+python removeAnnotation.sh UniverseOfViralProteins.fasta UniverseOfViralProteins.fasta.mod
+mv UniverseOfViralProteins.fasta.mod > UniverseOfViralProteins.fasta

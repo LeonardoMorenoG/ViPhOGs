@@ -1,0 +1,5 @@
+grep -f 1_getGenomes/finalGenomes.csv ../../2_GettingProteins/Phages/phageAndPredictedProteins.fasta > genomesProteins.txt
+sed 's/>//g' genomesProteins.txt > genomesProteins.txt.mod
+mv genomesProteins.txt.mod genomesProteins.txt
+xargs samtools faidx ../../2_GettingProteins/Phages/phageAndPredictedProteins.fasta < genomesProteins.txt > genomesProteins.fasta
+python ../getSequencesSize.py genomesProteins.fasta > genomesProteins.size

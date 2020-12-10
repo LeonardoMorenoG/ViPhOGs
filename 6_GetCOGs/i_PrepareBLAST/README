@@ -1,0 +1,35 @@
+i) create BLAST database
+qsub createBLASTdb.sh 
+ii) Split query sequences in 12 files
+grep ">" ../../D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta | sed 's/>//g' > proteinNames.txt #Get names of all proteins
+split -l 57806 -da 2 proteinNames.txt # since ther are 693676 proteins and we need 12 files for parallelizing blast
+cat x11 x12 > x13
+mv x13 x11
+rm x12
+grep -c " " x* #Check for spaces in batch name files
+awk -F" " '{print $1}' x08 > x08.mod #remove annotation from the name
+
+iii) remove low complexity sequences #807 low complexity regions were found. Those sequences were removed from the file UniverseOfViralProteins
+sort -u badSequences.txt > badSequences.txt.mod
+mv badSequences.txt.mod badSequences.txt
+sort -u proteinNames.txt > proteinNames.txt.mod
+mv proteinNames.txt.mod proteinNames.txt
+comm -23 proteinNames.txt badSequences.txt > newUniverse.txt
+python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta newUniverse.txt newUniverse.fasta
+mv newUniverse.fasta ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta
+NOW, REPEAT STEPS ONE AND TWO. 
+
+iv) split 
+#vpb stands for VIRUS PROTEIN BATCH
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x00 vpb1.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x01 vpb2.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x02 vpb3.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x03 vpb4.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x04 vpb5.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x05 vpb6.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x06 vpb7.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x07 vpb8.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x08 vpb9.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x09 vpb10.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x10 vpb11.fasta &
+nohup python selectSomeSequences.py ~/D_getDomains/3_allInterproDomains/xii_combineOutputs/UniverseOfViralProteins.fasta x11 vpb12.fasta &

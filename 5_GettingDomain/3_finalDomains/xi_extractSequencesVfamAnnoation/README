@@ -1,0 +1,4 @@
+python extractSeq.py ../vii_getNonAnnotatedProteins/regionsNotAnnotated.fasta ../x_getNonDomainsRegionsvFam/regionsNotAnnotated.vFamAnnotation.annotationAndNonAnnotation.tsv regionsOfInterproScanWithVfam.fasta
+
+
+python extractSeq.py ../vii_getNonAnnotatedProteins/proteinsNotAnnotated.fasta ../x_getNonDomainsRegionsvFam/proteinsVfamAnnoation.annotationAndNonAnnotation.tsv regionsVfam.fasta

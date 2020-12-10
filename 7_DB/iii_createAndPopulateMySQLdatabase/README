@@ -1,0 +1,55 @@
+i) Install mysQL workbench (Just for edit or generate new ERDs)
+install from software center
+
+ii) Download bioSQL 
+
+iii) Install mysql-Server
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install mysql-server
+set a password and don't forget it (jl201130674)
+
+iv) Create a DB
+>mysqladmin -u root -p create viruses
+set TYPE=INNODB to Engine=InnoDB 
+	sed 's/TYPE=/Engine=/g' ~/Programs/biosql-1.0.1/sql/biosqldb-mysql.sql > ~/Programs/biosql-1.0.1/sql/biosqldb-mysql.sql.mod
+	mv ~/Programs/biosql-1.0.1/sql/biosqldb-mysql.sql.mod ~/Programs/biosql-1.0.1/sql/biosqldb-mysql.sql
+>mysql -u root -p viruses < ~/Programs/biosql-1.0.1/sql/biosqldb-mysql.sql
+
+v) verify creation
+mysql
+>USE orthologousGroup;
+>SHOW TABLES;
+
+vi) install mysql-python connector
+Download mysql-python sourceforge (https://sourceforge.net/projects/mysql-python/)
+*install mysql-config
+	sudo apt-get install libmysqlclient-dev
+python setup.py build
+python setup.py install
+
+vii)How to create a connection to the DB from Python. 
+from BioSQL import BioSeqDatabase
+server = BioSeqDatabase.open_database(driver="MySQLdb", user="root", passwd="jl201130674mg", host="localhost", db="orthologousGroup")
+
+viii) populate db
+python populateDatabase.py ../ii_editGenbank/genomes.gb
+./2_LoadTaxonomy.txt
+ix)this changes are necessary!!! Do not forget them.
+UPDATE bioentry SET bioentry.taxon_id=1257 WHERE bioentry.accession="EF555644";
+UPDATE bioentry SET bioentry.taxon_id=1257 WHERE bioentry.accession="JF260926";
+UPDATE bioentry SET bioentry.taxon_id=1257 WHERE bioentry.accession="KF129411";
+UPDATE bioentry SET bioentry.taxon_id=1257 WHERE bioentry.accession="KF129412";
+UPDATE bioentry SET bioentry.taxon_id=1403480 WHERE bioentry.accession="KC935379";
+UPDATE bioentry SET bioentry.taxon_id=60700 WHERE bioentry.accession="NC_013197";
+UPDATE bioentry SET bioentry.taxon_id=60700 WHERE bioentry.accession="NC_004462";
+UPDATE bioentry SET bioentry.taxon_id=159790 WHERE bioentry.accession="NC_009740";
+UPDATE bioentry SET bioentry.taxon_id=105 WHERE bioentry.accession="NC_021315";
+UPDATE bioentry SET bioentry.taxon_id=1403477 WHERE bioentry.accession="NC_023861";
+UPDATE bioentry SET bioentry.taxon_id=124188 WHERE bioentry.accession="NC_024892";
+UPDATE bioentry SET bioentry.taxon_id=277150 WHERE bioentry.accession="NC_026439";
+UPDATE bioentry SET bioentry.taxon_id=277150 WHERE bioentry.accession="NC_026509";
+
+
+SELECT * FROM bioentry WHERE bioentry.taxon_id=14033480
+

@@ -1,0 +1,3 @@
+run GetMatrices.ipynb for each rank 
+run getRankForViphogs.sh
+mv output.txt viphogsRankLabel.csv

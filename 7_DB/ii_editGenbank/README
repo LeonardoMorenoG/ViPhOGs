@@ -1,0 +1,6 @@
+i) Concatenate genbanks of Phages and Viruses
+cat 2_GettingProteins/Phages/sequence.gb 2_GettingProteins/Viruses/sequence.gb > nonRedundantViralGenomes.gb
+
+ii)Use all regions and domains generated for edit the genbank sequences. The idea is replace all sequences that genbank has by default with regions and domains 
+
+

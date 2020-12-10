@@ -1,0 +1,11 @@
+xargs samtools faidx allProteins.fasta < xag > xag.fasta
+xargs samtools faidx allProteins.fasta < xae > xae.fasta
+xargs samtools faidx allProteins.fasta < xad > xad.fasta
+xargs samtools faidx allProteins.fasta < xaa > xaa.fasta
+xargs samtools faidx allProteins.fasta < xah > xah.fasta
+xargs samtools faidx allProteins.fasta < xac > xac.fasta
+xargs samtools faidx allProteins.fasta < xak > xak.fasta
+xargs samtools faidx allProteins.fasta < xaj > xaj.fasta
+xargs samtools faidx allProteins.fasta < xai > xai.fasta
+xargs samtools faidx allProteins.fasta < xab > xab.fasta
+xargs samtools faidx allProteins.fasta < xaf > xaf.fasta
